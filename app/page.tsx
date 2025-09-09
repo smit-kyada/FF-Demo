@@ -14,7 +14,7 @@ export default function Home() {
         
         {/* Banner Ad */}
         <AdManager
-          adUnit="/123456789/example-banner"
+          adUnit="/23308471723/bimbgames-one-BANNER-1"
           adSize={[728, 90]}
           adSlot="banner-ad-1"
           className="banner"
@@ -94,7 +94,7 @@ export default ArticleCard;`}</pre>
 
           {/* Rectangle Ad */}
           <AdManager
-            adUnit="/123456789/example-rectangle"
+            adUnit="/23308471723/bimbgames-one-BANNER-1"
             adSize={[300, 250]}
             adSlot="rectangle-ad-1"
             style={{ margin: '2rem auto', display: 'block' }}
@@ -143,7 +143,7 @@ npm run dev`}</pre>
         {/* Sidebar with Ads */}
         <div className="sidebar">
           <AdManager
-            adUnit="/123456789/example-sidebar"
+            adUnit="/23308471723/bimbgames-one-BANNER-1"
             adSize={[300, 600]}
             adSlot="sidebar-ad-1"
             className="sidebar"
@@ -176,7 +176,7 @@ npm run dev`}</pre>
           </div>
 
           <AdManager
-            adUnit="/123456789/example-sidebar-2"
+            adUnit="/23308471723/bimbgames-one-BANNER-1"
             adSize={[300, 250]}
             adSlot="sidebar-ad-2"
             style={{ margin: 0 }}
@@ -199,7 +199,7 @@ npm run dev`}</pre>
         </div>
 
         <AdManager
-          adUnit="/123456789/example-banner-bottom"
+          adUnit="/23308471723/bimbgames-one-BANNER-1"
           adSize={[728, 90]}
           adSlot="banner-ad-2"
           className="banner"
