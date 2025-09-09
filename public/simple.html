@@ -120,17 +120,46 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            width: 100%;
+            max-width: 1200px;
         }
 
         .ad-container.banner {
             min-height: 90px;
             padding: 1rem;
+            max-width: 1200px;
         }
 
         .ad-container.sidebar {
-            min-height: 600px;
-            width: 300px;
+            min-height: 250px;
+            width: 100%;
+            max-width: 300px;
             margin: 0 auto;
+        }
+
+        /* Responsive ad container adjustments */
+        @media (min-width: 1280px) {
+            .ad-container.banner {
+                max-width: 1200px;
+            }
+        }
+
+        @media (min-width: 1024px) and (max-width: 1279px) {
+            .ad-container.banner {
+                max-width: 970px;
+            }
+        }
+
+        @media (min-width: 800px) and (max-width: 1023px) {
+            .ad-container.banner {
+                max-width: 780px;
+            }
+        }
+
+        @media (max-width: 799px) {
+            .ad-container.banner {
+                max-width: 336px;
+            }
         }
 
         .ad-label {
@@ -523,22 +552,39 @@ ng serve</pre>
         window.googletag = window.googletag || {cmd: []};
         
         googletag.cmd.push(function() {
-            // Define ad slots
-            const bannerAd1 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', [728, 90], 'banner-ad-1');
-            const rectangleAd1 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', [300, 250], 'rectangle-ad-1');
-            const sidebarAd1 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', [300, 600], 'sidebar-ad-1');
-            const sidebarAd2 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', [300, 250], 'sidebar-ad-2');
-            const bannerAd2 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', [728, 90], 'banner-ad-2');
+            // Create responsive size mapping
+            var mapping = googletag.sizeMapping()
+                            .addSize([1280, 768], [[1200, 250]])
+                            .addSize([1024, 768], [[970, 90], [970, 250]])
+                            .addSize([800, 450], [[780, 250], [750, 250], [728, 90]])
+                            .addSize([0, 0], [[300, 250], [336, 280]])
+                            .build();
 
-            // Add services to each slot
-            if (bannerAd1) bannerAd1.addService(googletag.pubads());
-            if (rectangleAd1) rectangleAd1.addService(googletag.pubads());
-            if (sidebarAd1) sidebarAd1.addService(googletag.pubads());
-            if (sidebarAd2) sidebarAd2.addService(googletag.pubads());
-            if (bannerAd2) bannerAd2.addService(googletag.pubads());
+            // Define ad slots with responsive sizing
+            const bannerAd1 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', 
+                [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]], 'banner-ad-1')
+                .defineSizeMapping(mapping)
+                .addService(googletag.pubads());
 
-            // Enable SRA (Single Request Architecture)
-            googletag.pubads().enableSingleRequest();
+            const rectangleAd1 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', 
+                [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]], 'rectangle-ad-1')
+                .defineSizeMapping(mapping)
+                .addService(googletag.pubads());
+
+            const sidebarAd1 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', 
+                [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]], 'sidebar-ad-1')
+                .defineSizeMapping(mapping)
+                .addService(googletag.pubads());
+
+            const sidebarAd2 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', 
+                [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]], 'sidebar-ad-2')
+                .defineSizeMapping(mapping)
+                .addService(googletag.pubads());
+
+            const bannerAd2 = googletag.defineSlot('/23308471723/gamespowerplay-com-BANNER-1', 
+                [[300,250],[336,280],[780,250],[750,250],[728,90],[970,250],[970,90],[1200,250]], 'banner-ad-2')
+                .defineSizeMapping(mapping)
+                .addService(googletag.pubads());
             
             // Enable lazy loading
             googletag.pubads().enableLazyLoad({
@@ -547,15 +593,18 @@ ng serve</pre>
                 mobileScaling: 2.0
             });
 
+            // Collapse empty divs
+            googletag.pubads().collapseEmptyDivs();
+            
+            // Enable services
+            googletag.enableServices();
+
             // Display ads
             googletag.display('banner-ad-1');
             googletag.display('rectangle-ad-1');
             googletag.display('sidebar-ad-1');
             googletag.display('sidebar-ad-2');
             googletag.display('banner-ad-2');
-
-            // Refresh ads
-            googletag.pubads().refresh();
         });
 
         // Smooth scrolling for anchor links
